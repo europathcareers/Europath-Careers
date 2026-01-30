@@ -9,23 +9,6 @@ const Footer: React.FC = () => {
     <footer className="bg-gray-50 pt-24 pb-12 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Large Brand CTA Section */}
-        <div className="bg-rose-600 rounded-3xl p-8 md:p-16 text-center text-white mb-20 shadow-2xl shadow-rose-600/20 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-24 -mt-24 transition-transform duration-1000 group-hover:scale-110"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white opacity-5 rounded-full -ml-16 -mb-16 transition-transform duration-1000 group-hover:scale-110"></div>
-            
-            <div className="relative z-10">
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Ready to transcend borders?</h2>
-                <p className="text-rose-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Join thousands of professionals who have successfully built their careers in Europe with our ethical recruitment framework.
-                </p>
-                <div className="flex justify-center">
-                  <Link to="/candidates" className="inline-block bg-white text-rose-600 hover:bg-gray-50 px-10 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg">
-                      Apply as Candidate
-                  </Link>
-                </div>
-            </div>
-        </div>
 
         {/* Main Footer Links & Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">

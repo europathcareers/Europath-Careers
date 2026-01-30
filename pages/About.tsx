@@ -175,14 +175,12 @@ const About: React.FC = () => {
                               <h4 className="font-bold text-lg">Senior Recruiter (Healthcare)</h4>
                               <p className="text-sm text-gray-500">Remote / Munich</p>
                           </div>
-                          <button className="text-rose-600 font-semibold hover:underline">Apply</button>
                       </div>
                       <div className="flex justify-between items-center">
                           <div>
                               <h4 className="font-bold text-lg">Operations Manager</h4>
                               <p className="text-sm text-gray-500">London, UK</p>
                           </div>
-                          <button className="text-rose-600 font-semibold hover:underline">Apply</button>
                       </div>
                   </div>
               </FadeIn>
