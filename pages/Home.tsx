@@ -230,8 +230,8 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                     { title: "Germany's New Opportunity Card Explained", date: "Oct 12, 2024", cat: "Visa Update", img: "https://images.unsplash.com/photo-1527866959252-deab85ef7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                    { title: "Top 5 In-Demand Skills in the Netherlands", date: "Oct 08, 2024", cat: "Career Tips", img: "https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                    { title: "UK Healthcare Visa: Changes for 2025", date: "Sep 28, 2024", cat: "Policy", img: "https://images.unsplash.com/photo-1576091160550-21878bf01ad3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                    { title: "Top 5 In-Demand Skills in the Netherlands", date: "Oct 08, 2024", cat: "Career Tips", img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { title: "UK Healthcare Visa: Changes for 2025", date: "Sep 28, 2024", cat: "Policy", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
                 ].map((post, i) => (
                     <FadeIn key={i} delay={i * 150}>
                         <div className="group cursor-pointer">

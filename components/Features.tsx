@@ -57,8 +57,8 @@ const Features: React.FC = () => {
                     { title: "Healthcare & Caregiving", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "High Demand" },
                     { title: "Construction & Trades", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Skilled" },
                     { title: "Logistics & Transport", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Immediate" },
-                    { title: "Hospitality Services", img: "https://images.unsplash.com/photo-1600566752355-35792bedcfe1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Seasonal" },
-                    { title: "Manufacturing", img: "https://images.unsplash.com/photo-1565514020176-db7159d33b3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Contract" },
+                    { title: "Hospitality Services", img: "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Seasonal" },
+                    { title: "Manufacturing", img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Contract" },
                 ].map((item, idx) => (
                     <div 
                         key={idx} 
