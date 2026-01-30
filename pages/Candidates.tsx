@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { ClipboardList, UserCheck, Plane, Briefcase, X, Upload, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, FileDown, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle } from 'lucide-react';
+import { ClipboardList, UserCheck, Plane, Briefcase, X, Link as LinkIcon, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, FileDown, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle, Mail, Phone, User } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import { useLocation } from 'react-router-dom';
 
 const Candidates: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [fileName, setFileName] = useState('');
+  // Multi-step form state
+  const [cvStep, setCvStep] = useState(1);
+  const [cvFormData, setCvFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    role: '',
+    link: ''
+  });
+  
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [jobAlertEmail, setJobAlertEmail] = useState('');
 
@@ -35,6 +44,22 @@ const Candidates: React.FC = () => {
         }, 100);
     }
   }, [location]);
+
+  // Handle Form Change
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const field = e.target.getAttribute('data-field');
+      if (field) {
+          setCvFormData(prev => ({ ...prev, [field]: e.target.value }));
+      }
+  };
+
+  const handleModalClose = () => {
+      setIsModalOpen(false);
+      setTimeout(() => {
+          setCvStep(1);
+          setCvFormData({ name: '', email: '', phone: '', role: '', link: '' });
+      }, 300);
+  };
 
   const jobs = [
     { id: 1, title: "Registered ICU Nurse", location: "Munich, Germany", salary: "€3,800 - €4,500/mo", type: "Full-time", industry: "Healthcare", posted: "2 days ago", featured: true },
@@ -80,12 +105,6 @@ const Candidates: React.FC = () => {
     { q: "Can I bring my family?", a: "Yes! Most skilled worker visas in Europe allow for family reunification. Typically, you can apply for your spouse and children to join you once you have settled and passed the probationary period (usually 3-6 months)." },
     { q: "Do I need to speak the language?", a: "It depends on the role. For healthcare roles in Germany, B2 German is usually required. For IT or warehousing in the Netherlands, English is often sufficient. We provide access to language training partners." }
   ];
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFileName(e.target.files[0].name);
-    }
-  };
 
   const handleEligibilityAnswer = (key: string, value: string) => {
       setEligibilityAnswers({...eligibilityAnswers, [key]: value});
@@ -368,12 +387,16 @@ const Candidates: React.FC = () => {
                       <div className="flex-grow text-center md:text-left">
                           <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss an Opportunity</h3>
                           <p className="text-gray-600 mb-4">Get notified instantly when new jobs match your skills and preferred destination.</p>
-                          <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="flex gap-2">
-                              <input type="hidden" name="_subject" value="Job Alert Subscription" />
-                              <input type="hidden" name="_captcha" value="false" />
+                          <form 
+                              action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+                              method="POST" 
+                              target="_blank"
+                              className="flex gap-2"
+                          >
+                              {/* REPLACE 'entry.YOUR_EMAIL_ID' WITH ACTUAL GOOGLE FORM ENTRY ID */}
                               <input 
                                   type="email" 
-                                  name="email"
+                                  name="entry.YOUR_EMAIL_ID"
                                   placeholder="Your email address" 
                                   required
                                   value={jobAlertEmail}
@@ -440,61 +463,161 @@ const Candidates: React.FC = () => {
         </div>
       </section>
 
-      {/* CV Modal */}
+      {/* CV Modal (Multi-step Form) */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl scale-100 animate-in zoom-in-95 duration-200 relative">
                 <button 
-                    onClick={() => setIsModalOpen(false)}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                    onClick={handleModalClose}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10"
                 >
                     <X size={24} />
                 </button>
 
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Submit Your CV</h2>
-                <p className="text-gray-500 mb-6">Upload your resume to join our talent pool.</p>
+                <div className="mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Submit Your CV</h2>
+                    <p className="text-gray-500 text-sm">Join our global talent pool in just a few steps.</p>
+                </div>
 
-                <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" encType="multipart/form-data">
-                    <input type="hidden" name="_subject" value="New CV Application" />
-                    <input type="hidden" name="_captcha" value="false" />
-                    
-                    <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                        <input type="text" name="name" className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none" required placeholder="John Doe" />
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-100 h-1.5 rounded-full mb-8 overflow-hidden">
+                    <div className={`h-full bg-rose-600 transition-all duration-500 ease-out ${cvStep === 1 ? 'w-1/2' : 'w-full'}`}></div>
+                </div>
+
+                {/* GOOGLE FORM SUBMISSION */}
+                <form 
+                    action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+                    method="POST" 
+                    target="_blank"
+                    onSubmit={() => setTimeout(handleModalClose, 1500)}
+                >
+                    {/* Step 1: Personal Information */}
+                    <div className={cvStep === 1 ? 'block animate-in slide-in-from-right-4 duration-300' : 'hidden'}>
+                        <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">1. Personal Details</h3>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Full Name</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <input 
+                                        type="text" 
+                                        name="entry.YOUR_NAME_ID" 
+                                        data-field="name"
+                                        value={cvFormData.name}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        required 
+                                        placeholder="John Doe" 
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Email Address</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <input 
+                                        type="email" 
+                                        name="entry.YOUR_EMAIL_ID" 
+                                        data-field="email"
+                                        value={cvFormData.email}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        required 
+                                        placeholder="john@example.com" 
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Phone Number</label>
+                                <div className="relative">
+                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <input 
+                                        type="tel" 
+                                        name="entry.YOUR_PHONE_ID" 
+                                        data-field="phone"
+                                        value={cvFormData.phone}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        required 
+                                        placeholder="+1 234 567 890" 
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button 
+                            type="button" 
+                            onClick={() => {
+                                if (cvFormData.name && cvFormData.email && cvFormData.phone) setCvStep(2);
+                            }}
+                            disabled={!cvFormData.name || !cvFormData.email || !cvFormData.phone}
+                            className="w-full mt-8 bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            Next Step <ArrowRight size={18} />
+                        </button>
                     </div>
-                    
-                    <div className="mb-8">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Resume (PDF/Doc)</label>
-                        <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
-                            <input 
-                                type="file" 
-                                name="resume"
-                                onChange={handleFileChange}
-                                accept=".pdf,.doc,.docx"
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                required 
-                            />
-                            {fileName ? (
-                                <div className="flex items-center justify-center gap-2 text-rose-600 font-medium">
-                                    <Briefcase size={20} />
-                                    {fileName}
+
+                    {/* Step 2: Professional Details */}
+                    <div className={cvStep === 2 ? 'block animate-in slide-in-from-right-4 duration-300' : 'hidden'}>
+                        <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">2. Professional Profile</h3>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Preferred Role</label>
+                                <div className="relative">
+                                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <input 
+                                        type="text" 
+                                        name="entry.YOUR_ROLE_ID" 
+                                        data-field="role"
+                                        value={cvFormData.role}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        required 
+                                        placeholder="e.g. ICU Nurse, Welder" 
+                                    />
                                 </div>
-                            ) : (
-                                <div className="flex flex-col items-center text-gray-400">
-                                    <Upload size={32} className="mb-2" />
-                                    <span className="text-sm">Click to upload or drag and drop</span>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Link to Resume (Drive/Dropbox/LinkedIn)</label>
+                                <div className="relative">
+                                    <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <input 
+                                        type="url" 
+                                        name="entry.YOUR_CV_LINK_ID" 
+                                        data-field="link"
+                                        value={cvFormData.link}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        required 
+                                        placeholder="https://" 
+                                    />
                                 </div>
-                            )}
+                                <p className="text-xs text-gray-500 mt-2">Ensure the link is publicly accessible.</p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3 mt-8">
+                            <button 
+                                type="button" 
+                                onClick={() => setCvStep(1)}
+                                className="w-1/3 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-200 transition-colors"
+                            >
+                                Back
+                            </button>
+                            <button 
+                                type="submit" 
+                                disabled={!cvFormData.role || !cvFormData.link}
+                                className="w-2/3 bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            >
+                                Submit Application <CheckCircle size={18} />
+                            </button>
                         </div>
                     </div>
-
-                    <button 
-                        type="submit" 
-                        disabled={!fileName}
-                        className="w-full bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                    >
-                        Submit Application
-                    </button>
                 </form>
             </div>
         </div>

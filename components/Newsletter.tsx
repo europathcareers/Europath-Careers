@@ -17,12 +17,16 @@ const Newsletter: React.FC = () => {
               Get the latest job alerts, migration policy updates, and career tips for international professionals delivered directly to your inbox.
             </p>
             
-            <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-              <input type="hidden" name="_subject" value="Newsletter Subscription" />
-              <input type="hidden" name="_captcha" value="false" />
+            <form 
+              action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+              method="POST" 
+              target="_blank"
+              className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
+            >
+              {/* REPLACE 'entry.YOUR_EMAIL_ID' WITH ACTUAL GOOGLE FORM ENTRY ID */}
               <input 
                 type="email" 
-                name="email"
+                name="entry.YOUR_EMAIL_ID"
                 placeholder="Enter your email address" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

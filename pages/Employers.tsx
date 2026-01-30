@@ -258,16 +258,20 @@ const Employers: React.FC = () => {
       <section id="inquiry-form" className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-50 p-8 md:p-16 rounded-3xl border border-gray-100 shadow-sm">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-10 tracking-tight">Submit Talent Request</h2>
-            <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="space-y-6">
-                <input type="hidden" name="_subject" value="New Employer Inquiry" />
-                <input type="hidden" name="_captcha" value="false" />
+            <form 
+                action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+                method="POST" 
+                target="_blank"
+                className="space-y-6"
+            >
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Company Name</label>
+                        {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                         <input 
                             type="text" 
-                            name="company"
+                            name="entry.YOUR_COMPANY_ID"
                             required
                             value={formData.companyName}
                             onChange={handleChange}
@@ -277,9 +281,10 @@ const Employers: React.FC = () => {
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Contact Officer</label>
+                        {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                         <input 
                             type="text" 
-                            name="name"
+                            name="entry.YOUR_NAME_ID"
                             required
                             value={formData.contactPerson}
                             onChange={handleChange}
@@ -290,9 +295,10 @@ const Employers: React.FC = () => {
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Professional Email</label>
+                    {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                     <input 
                         type="email" 
-                        name="email"
+                        name="entry.YOUR_EMAIL_ID"
                         required
                         value={formData.email}
                         onChange={handleChange}
@@ -302,8 +308,9 @@ const Employers: React.FC = () => {
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Staffing Requirements</label>
+                    {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                     <textarea 
-                        name="message"
+                        name="entry.YOUR_MESSAGE_ID"
                         required
                         value={formData.hiringNeeds}
                         onChange={handleChange}

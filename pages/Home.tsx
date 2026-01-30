@@ -7,7 +7,7 @@ import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Newsletter from '../components/Newsletter';
 import FadeIn from '../components/FadeIn';
-import { Play, MapPin, TrendingUp, DollarSign, Newspaper, ArrowRight, Globe } from 'lucide-react';
+import { Play, MapPin, TrendingUp, DollarSign, Newspaper, ArrowRight, Globe, Mail, User, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -248,6 +248,102 @@ const Home: React.FC = () => {
                 </Link>
             </div>
           </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+            <div className="md:w-1/2 bg-gray-900 p-12 text-white flex flex-col justify-between relative overflow-hidden">
+               {/* Decorative background */}
+               <div className="absolute top-0 right-0 w-64 h-64 bg-rose-600 rounded-full blur-3xl opacity-20 -mr-16 -mt-16"></div>
+               <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600 rounded-full blur-3xl opacity-20 -ml-16 -mb-16"></div>
+               
+               <div className="relative z-10">
+                 <h2 className="text-3xl font-bold mb-4">Let's start a conversation</h2>
+                 <p className="text-gray-300 mb-8">Whether you are a candidate looking for opportunities or an employer seeking talent, we are here to help.</p>
+                 
+                 <div className="space-y-6">
+                   <div className="flex items-center gap-4">
+                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                       <Mail size={20} className="text-rose-400" />
+                     </div>
+                     <div>
+                       <p className="text-sm text-gray-400">Email us</p>
+                       <p className="font-semibold">europathcareers@gmail.com</p>
+                     </div>
+                   </div>
+                   <div className="flex items-center gap-4">
+                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                       <MapPin size={20} className="text-rose-400" />
+                     </div>
+                     <div>
+                       <p className="text-sm text-gray-400">Headquarters</p>
+                       <p className="font-semibold">London, UK</p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+
+               <div className="relative z-10 mt-12">
+                 <p className="text-sm text-gray-400">"EuroPath connected us with exceptional nursing talent in record time."</p>
+                 <p className="text-xs text-rose-400 mt-2 font-bold">- Berlin Charity Hospital</p>
+               </div>
+            </div>
+
+            <div className="md:w-1/2 p-12">
+              <form 
+                  action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+                  method="POST" 
+                  target="_blank"
+                  className="space-y-6"
+              >
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">I am a...</label>
+                  <div className="flex gap-4">
+                    <label className="flex-1 cursor-pointer">
+                      <input type="radio" name="entry.USER_TYPE" value="Candidate" className="peer sr-only" defaultChecked />
+                      <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
+                        Candidate
+                      </div>
+                    </label>
+                    <label className="flex-1 cursor-pointer">
+                      <input type="radio" name="entry.USER_TYPE" value="Employer" className="peer sr-only" />
+                      <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
+                        Employer
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input type="text" name="entry.NAME_ID" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input type="email" name="entry.EMAIL_ID" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
+                  <textarea name="entry.MESSAGE_ID" rows={4} placeholder="How can we help you?" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                  Send Message <Send size={18} />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </section>
 
       <Testimonials />
