@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ClipboardList, UserCheck, Plane, Briefcase, X, Link as LinkIcon, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, FileDown, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle, Mail, Phone, User } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Candidates: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,10 +88,9 @@ const Candidates: React.FC = () => {
   });
 
   const steps = [
-    { icon: ClipboardList, title: "1. Apply Online", desc: "Submit your profile and CV through our secure portal." },
-    { icon: UserCheck, title: "2. Screening", desc: "Our team verifies your skills, credentials, and experience." },
-    { icon: Briefcase, title: "3. Interview", desc: "Connect with verified employers for interviews." },
-    { icon: Plane, title: "4. Relocate", desc: "Visa support and pre-departure orientation." }
+    { icon: UserCheck, title: "1. Screening", desc: "Our team verifies your skills, credentials, and experience." },
+    { icon: Briefcase, title: "2. Interview", desc: "Connect with verified employers for interviews." },
+    { icon: Plane, title: "3. Relocate", desc: "Visa support and pre-departure orientation." }
   ];
 
   const countries = [
@@ -123,6 +123,10 @@ const Candidates: React.FC = () => {
 
   return (
     <div className="pt-20">
+      <SEO
+        title="For Candidates"
+        description="Explore overseas job opportunities in Germany, Netherlands, UK, and more. Find verified roles in Healthcare, Construction, IT, and Logistics."
+      />
       {/* Page Hero */}
       <section className="bg-rose-50 py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -134,14 +138,6 @@ const Candidates: React.FC = () => {
               <p className="text-xl text-gray-600 mb-8">
                 We help skilled professionals find safe, legal, and rewarding careers in Europe. No hidden fees, no false promises.
               </p>
-            </FadeIn>
-            <FadeIn delay={200}>
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="bg-rose-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-rose-700 transition-all hover:scale-105"
-              >
-                Submit Your CV
-              </button>
             </FadeIn>
           </div>
         </div>
@@ -236,12 +232,6 @@ const Candidates: React.FC = () => {
                                   </div>
                                   <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
                                       <span className="text-xs text-gray-400">{job.posted}</span>
-                                      <button 
-                                          onClick={() => setIsModalOpen(true)}
-                                          className="text-sm font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1"
-                                      >
-                                          Apply Now <ArrowRight size={16} />
-                                      </button>
                                   </div>
                               </div>
                           </FadeIn>
@@ -666,12 +656,6 @@ const Candidates: React.FC = () => {
                         </div>
                         <h3 className="text-2xl font-bold mb-2">{getEligibilityResult().title}</h3>
                         <p className="text-gray-600 mb-8">{getEligibilityResult().desc}</p>
-                        <button 
-                            onClick={() => { setShowEligibility(false); setIsModalOpen(true); }}
-                            className="bg-rose-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors"
-                        >
-                            Proceed to Application
-                        </button>
                     </div>
                 )}
                 

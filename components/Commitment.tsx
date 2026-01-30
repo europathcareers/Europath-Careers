@@ -16,7 +16,7 @@ const Commitment: React.FC = () => {
               Ethical, transparent, and <span className="text-rose-500">compliant</span> recruitment.
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              At EuroPath Careers, we don’t just place people in jobs — we build safe, legal, and sustainable career pathways abroad. We stand firmly against fraud and prioritize the well-being of every candidate.
+              At EuroJobs Careers, we don’t just place people in jobs — we build safe, legal, and sustainable career pathways abroad. We stand firmly against fraud and prioritize the well-being of every candidate.
             </p>
             <Link to="/resources" className="inline-block border border-white hover:bg-white hover:text-gray-900 text-white px-8 py-3 rounded-full font-medium transition-all">
               Our Code of Ethics

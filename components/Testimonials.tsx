@@ -9,7 +9,7 @@ const Testimonials: React.FC = () => {
       id: 1,
       name: "Sarah Jenkins",
       role: "ICU Nurse, Munich",
-      quote: "EuroPath made my dream of working in Germany a reality. The visa support was incredible, and they even helped me find an apartment.",
+      quote: "EuroJobs made my dream of working in Germany a reality. The visa support was incredible, and they even helped me find an apartment.",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
     },
     {
@@ -23,14 +23,14 @@ const Testimonials: React.FC = () => {
       id: 3,
       name: "Elena Rodriguez",
       role: "HR Director, Construction Co.",
-      quote: "We've hired over 20 skilled welders through EuroPath. The quality of candidates is consistently high, and retention rates are excellent.",
+      quote: "We've hired over 20 skilled welders through EuroJobs. The quality of candidates is consistently high, and retention rates are excellent.",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
     },
     {
       id: 4,
       name: "Marcus Weber",
       role: "Site Manager, Berlin",
-      quote: "Efficiency and compliance were our top concerns. EuroPath handled everything seamlessly, delivering candidates who were ready to work.",
+      quote: "Efficiency and compliance were our top concerns. EuroJobs handled everything seamlessly, delivering candidates who were ready to work.",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
     }
   ];

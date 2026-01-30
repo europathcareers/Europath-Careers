@@ -78,8 +78,8 @@ const Hero: React.FC = () => {
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" alt="Siemens" className="h-8 md:h-10 object-contain" />
               <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/DHL_Logo.svg" alt="DHL" className="h-6 md:h-8 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Airbus_SVG_Logo_2021.svg" alt="Airbus" className="h-6 md:h-8 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Volvo_Iron_Mark.svg" alt="Volvo" className="h-10 md:h-12 object-contain" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" className="h-10 md:h-12 object-contain" />
+              <img src="https://upload.wikimedia.org/wikipedia/en/e/e8/Shell_logo.svg" alt="Shell" className="h-10 md:h-12 object-contain" />
               <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Bosch-logo.svg" alt="Bosch" className="h-6 md:h-8 object-contain" />
           </div>
         </FadeIn>

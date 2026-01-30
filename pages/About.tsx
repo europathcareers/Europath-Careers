@@ -1,10 +1,15 @@
 import React from 'react';
 import { Globe, Heart, ShieldCheck, Linkedin, Award, History, MapPin, Briefcase } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
+import SEO from '../components/SEO';
 
 const About: React.FC = () => {
   return (
     <div className="pt-20">
+      <SEO
+        title="About Us"
+        description="Learn about EuroJobs Careers' mission to bridge the gap between global talent and European opportunities through ethical and transparent recruitment."
+      />
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center gap-16">
@@ -22,7 +27,7 @@ const About: React.FC = () => {
                       <span className="text-rose-600 font-bold uppercase tracking-wider text-sm">Our Story</span>
                       <h1 className="text-4xl font-bold text-gray-900 mt-4 mb-6">Building Bridges Across Borders</h1>
                       <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                          EuroPath Careers was founded on a simple belief: Talent is universal, but opportunity is not. We exist to bridge that gap. 
+                          EuroJobs Careers was founded on a simple belief: Talent is universal, but opportunity is not. We exist to bridge that gap.
                       </p>
                       <p className="text-lg text-gray-600 leading-relaxed mb-8">
                           As an international recruitment agency, we specialize in connecting skilled professionals with verified employers in Europe. Our mission is to facilitate ethical, safe, and transparent migration pathways that benefit both the candidate and the employer.
@@ -170,14 +175,12 @@ const About: React.FC = () => {
                               <h4 className="font-bold text-lg">Senior Recruiter (Healthcare)</h4>
                               <p className="text-sm text-gray-500">Remote / Munich</p>
                           </div>
-                          <button className="text-rose-600 font-semibold hover:underline">Apply</button>
                       </div>
                       <div className="flex justify-between items-center">
                           <div>
                               <h4 className="font-bold text-lg">Operations Manager</h4>
                               <p className="text-sm text-gray-500">London, UK</p>
                           </div>
-                          <button className="text-rose-600 font-semibold hover:underline">Apply</button>
                       </div>
                   </div>
               </FadeIn>

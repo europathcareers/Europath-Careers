@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, HelpCircle, BookOpen, Download, Loader2, Check, Calculator, Calendar, ListTodo, Square, CheckSquare, Languages, ExternalLink, Scale, ArrowRightLeft } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
+import SEO from '../components/SEO';
 
 const Resources: React.FC = () => {
     const [downloading, setDownloading] = useState<number | null>(null);
@@ -51,7 +52,7 @@ const Resources: React.FC = () => {
     };
 
     const faqs = [
-        { q: "Are there any fees for candidates?", a: "EuroPath Careers maintains a strict ethical recruitment policy. We do not charge placement fees to candidates for standard job matching services. Any administrative costs (medical, visa) are transparently communicated." },
+        { q: "Are there any fees for candidates?", a: "EuroJobs Careers maintains a strict ethical recruitment policy. We do not charge placement fees to candidates for standard job matching services. Any administrative costs (medical, visa) are transparently communicated." },
         { q: "Which countries do you recruit for?", a: "We primarily recruit for roles in Germany, Poland, the Netherlands, and the UK, but our network is expanding globally." },
         { q: "How long does the process take?", a: "Timelines vary by country and visa type, but typically range from 2 to 6 months from application to deployment." },
         { q: "Do you provide training?", a: "Yes, we partner with training centers to offer language courses and skill upgrades required for specific roles." },
@@ -59,6 +60,10 @@ const Resources: React.FC = () => {
 
   return (
     <div className="pt-20">
+      <SEO
+        title="Resources & Support"
+        description="Access guides, FAQs, salary estimators, and relocation checklists to help you navigate your international career journey."
+      />
        <section className="bg-gray-50 py-20">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold mb-4 text-gray-900">Resources & Support</h1>

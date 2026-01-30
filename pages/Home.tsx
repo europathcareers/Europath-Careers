@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '../components/Hero';
+import SEO from '../components/SEO';
 import Stats from '../components/Stats';
 import Services from '../components/Services';
 import Commitment from '../components/Commitment';
@@ -13,6 +14,10 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   return (
     <>
+      <SEO
+        title="Home"
+        description="EuroJobs Careers connects skilled job seekers with verified employers across Europe. Build your safe, legal, and sustainable career pathway today."
+      />
       <Hero />
       
       {/* Latest Jobs Ticker */}
@@ -47,7 +52,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <FadeIn>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to EuroPath Careers</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to EuroJobs Careers</h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Discover how we bridge the gap between talent and opportunity. Our comprehensive support system ensures your journey to working in Europe is smooth, legal, and life-changing.
               </p>
@@ -225,8 +230,8 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                     { title: "Germany's New Opportunity Card Explained", date: "Oct 12, 2024", cat: "Visa Update", img: "https://images.unsplash.com/photo-1527866959252-deab85ef7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                    { title: "Top 5 In-Demand Skills in the Netherlands", date: "Oct 08, 2024", cat: "Career Tips", img: "https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                    { title: "UK Healthcare Visa: Changes for 2025", date: "Sep 28, 2024", cat: "Policy", img: "https://images.unsplash.com/photo-1576091160550-21878bf01ad3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                    { title: "Top 5 In-Demand Skills in the Netherlands", date: "Oct 08, 2024", cat: "Career Tips", img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                    { title: "UK Healthcare Visa: Changes for 2025", date: "Sep 28, 2024", cat: "Policy", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
                 ].map((post, i) => (
                     <FadeIn key={i} delay={i * 150}>
                         <div className="group cursor-pointer">
@@ -270,7 +275,7 @@ const Home: React.FC = () => {
                      </div>
                      <div>
                        <p className="text-sm text-gray-400">Email us</p>
-                       <p className="font-semibold">europathcareers@gmail.com</p>
+                       <p className="font-semibold">eurojobscareers@gmail.com</p>
                      </div>
                    </div>
                    <div className="flex items-center gap-4">
@@ -286,7 +291,7 @@ const Home: React.FC = () => {
                </div>
 
                <div className="relative z-10 mt-12">
-                 <p className="text-sm text-gray-400">"EuroPath connected us with exceptional nursing talent in record time."</p>
+                 <p className="text-sm text-gray-400">"EuroJobs connected us with exceptional nursing talent in record time."</p>
                  <p className="text-xs text-rose-400 mt-2 font-bold">- Berlin Charity Hospital</p>
                </div>
             </div>
