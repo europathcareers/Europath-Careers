@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                 <div className="flex items-center gap-2 mb-6">
                     <Globe className="h-8 w-8 text-rose-600" />
                     <div className="flex flex-col">
-                      <span className="text-2xl font-bold text-gray-900 tracking-tight leading-none">EuroPath</span>
+                      <span className="text-2xl font-bold text-gray-900 tracking-tight leading-none">EuroJobs</span>
                       <span className="text-[10px] font-bold text-rose-600 tracking-[0.2em] uppercase">Careers</span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
                       <Mail size={18} className="text-rose-600 flex-shrink-0" />
                       <div>
                         <p className="text-sm font-bold text-gray-900">Email Support</p>
-                        <a href="mailto:europathcareers@gmail.com" className="text-sm text-gray-500 hover:text-rose-600 transition-colors">europathcareers@gmail.com</a>
+                        <a href="mailto:eurojobscareers@gmail.com" className="text-sm text-gray-500 hover:text-rose-600 transition-colors">eurojobscareers@gmail.com</a>
                       </div>
                     </li>
                     <li className="flex gap-3">
@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-              <p className="text-sm text-gray-400">&copy; {currentYear} EuroPath Careers. All rights reserved.</p>
+              <p className="text-sm text-gray-400">&copy; {currentYear} EuroJobs Careers. All rights reserved.</p>
               <nav className="flex gap-6">
                 <Link to="/resources" className="text-xs text-gray-400 hover:text-rose-600 transition-colors">Privacy Policy</Link>
                 <Link to="/resources" className="text-xs text-gray-400 hover:text-rose-600 transition-colors">Terms of Service</Link>

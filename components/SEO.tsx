@@ -10,7 +10,7 @@ const SEO = ({ title, description }: SEOProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = `${title} | EuroPath Careers`;
+    document.title = `${title} | EuroJobs Careers`;
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {

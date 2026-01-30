@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     <>
       <SEO
         title="Home"
-        description="EuroPath Careers connects skilled job seekers with verified employers across Europe. Build your safe, legal, and sustainable career pathway today."
+        description="EuroJobs Careers connects skilled job seekers with verified employers across Europe. Build your safe, legal, and sustainable career pathway today."
       />
       <Hero />
       
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <FadeIn>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to EuroPath Careers</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to EuroJobs Careers</h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Discover how we bridge the gap between talent and opportunity. Our comprehensive support system ensures your journey to working in Europe is smooth, legal, and life-changing.
               </p>
@@ -275,7 +275,7 @@ const Home: React.FC = () => {
                      </div>
                      <div>
                        <p className="text-sm text-gray-400">Email us</p>
-                       <p className="font-semibold">europathcareers@gmail.com</p>
+                       <p className="font-semibold">eurojobscareers@gmail.com</p>
                      </div>
                    </div>
                    <div className="flex items-center gap-4">
@@ -291,7 +291,7 @@ const Home: React.FC = () => {
                </div>
 
                <div className="relative z-10 mt-12">
-                 <p className="text-sm text-gray-400">"EuroPath connected us with exceptional nursing talent in record time."</p>
+                 <p className="text-sm text-gray-400">"EuroJobs connected us with exceptional nursing talent in record time."</p>
                  <p className="text-xs text-rose-400 mt-2 font-bold">- Berlin Charity Hospital</p>
                </div>
             </div>

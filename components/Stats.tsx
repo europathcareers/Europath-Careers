@@ -23,7 +23,7 @@ const Stats: React.FC = () => {
                 </span>
               </div>
               <h3 className="text-xl font-medium mb-2">{stat.label}</h3>
-              <p className="text-sm text-gray-500">EuroPath Verified Data</p>
+              <p className="text-sm text-gray-500">EuroJobs Verified Data</p>
             </div>
           ))}
         </div>

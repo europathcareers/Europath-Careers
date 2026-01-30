@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                 <Globe className="h-8 w-8 text-rose-600" />
                 <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900 tracking-tight leading-none">
-                    EuroPath
+                    EuroJobs
                 </span>
                 <span className="text-xs font-medium text-rose-600 tracking-widest uppercase">
                     Careers
