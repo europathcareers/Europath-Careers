@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Stethoscope, HardHat, Truck, FileText, UserCheck, GraduationCap, Check, X, Building2, Hammer, Utensils, Download, Loader2 } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
+import SEO from '../components/SEO';
 
 const ServicesPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState('healthcare');
@@ -70,6 +71,10 @@ const ServicesPage: React.FC = () => {
 
   return (
     <div className="pt-20">
+      <SEO
+        title="Our Services"
+        description="Comprehensive recruitment and placement solutions, including overseas job placement, candidate screening, visa guidance, and relocation support."
+      />
       <section className="bg-rose-600 text-white py-20">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <FadeIn>

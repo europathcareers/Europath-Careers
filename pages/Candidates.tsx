@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ClipboardList, UserCheck, Plane, Briefcase, X, Link as LinkIcon, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, FileDown, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle, Mail, Phone, User } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Candidates: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -123,6 +124,10 @@ const Candidates: React.FC = () => {
 
   return (
     <div className="pt-20">
+      <SEO
+        title="For Candidates"
+        description="Explore overseas job opportunities in Germany, Netherlands, UK, and more. Find verified roles in Healthcare, Construction, IT, and Logistics."
+      />
       {/* Page Hero */}
       <section className="bg-rose-50 py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

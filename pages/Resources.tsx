@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, HelpCircle, BookOpen, Download, Loader2, Check, Calculator, Calendar, ListTodo, Square, CheckSquare, Languages, ExternalLink, Scale, ArrowRightLeft } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
+import SEO from '../components/SEO';
 
 const Resources: React.FC = () => {
     const [downloading, setDownloading] = useState<number | null>(null);
@@ -59,6 +60,10 @@ const Resources: React.FC = () => {
 
   return (
     <div className="pt-20">
+      <SEO
+        title="Resources & Support"
+        description="Access guides, FAQs, salary estimators, and relocation checklists to help you navigate your international career journey."
+      />
        <section className="bg-gray-50 py-20">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold mb-4 text-gray-900">Resources & Support</h1>

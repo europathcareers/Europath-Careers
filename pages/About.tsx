@@ -1,10 +1,15 @@
 import React from 'react';
 import { Globe, Heart, ShieldCheck, Linkedin, Award, History, MapPin, Briefcase } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
+import SEO from '../components/SEO';
 
 const About: React.FC = () => {
   return (
     <div className="pt-20">
+      <SEO
+        title="About Us"
+        description="Learn about EuroPath Careers' mission to bridge the gap between global talent and European opportunities through ethical and transparent recruitment."
+      />
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center gap-16">

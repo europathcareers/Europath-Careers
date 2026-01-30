@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '../components/Hero';
+import SEO from '../components/SEO';
 import Stats from '../components/Stats';
 import Services from '../components/Services';
 import Commitment from '../components/Commitment';
@@ -13,6 +14,10 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   return (
     <>
+      <SEO
+        title="Home"
+        description="EuroPath Careers connects skilled job seekers with verified employers across Europe. Build your safe, legal, and sustainable career pathway today."
+      />
       <Hero />
       
       {/* Latest Jobs Ticker */}
