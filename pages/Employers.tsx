@@ -9,29 +9,16 @@ const Employers: React.FC = () => {
     email: '',
     hiringNeeds: ''
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   // Interactive States
   const [brochureStatus, setBrochureStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [selectedProfile, setSelectedProfile] = useState<any>(null);
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [bookingStep, setBookingStep] = useState(0);
 
   // ROI Calculator State
   const [localSalary, setLocalSalary] = useState(45000);
   const [recruitmentTime, setRecruitmentTime] = useState(6); // months
   
   const estimatedSavings = Math.round((localSalary * 0.2) + (recruitmentTime * 2000) - 5000);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.companyName || !formData.email) return;
-    
-    setStatus('submitting');
-    setTimeout(() => {
-      setStatus('success');
-    }, 1500);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -270,93 +257,68 @@ const Employers: React.FC = () => {
       {/* Inquiry Form */}
       <section id="inquiry-form" className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-50 p-8 md:p-16 rounded-3xl border border-gray-100 shadow-sm">
-            {status === 'success' ? (
-                <div className="text-center py-12">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
-                        <CheckCircle className="w-8 h-8 text-green-600" />
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-10 tracking-tight">Submit Talent Request</h2>
+            <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="space-y-6">
+                <input type="hidden" name="_subject" value="New Employer Inquiry" />
+                <input type="hidden" name="_captcha" value="false" />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Company Name</label>
+                        <input 
+                            type="text" 
+                            name="company"
+                            required
+                            value={formData.companyName}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
+                            placeholder="Registered Name" 
+                        />
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Inquiry Received</h2>
-                    <p className="text-gray-600 mb-10 max-w-sm mx-auto">
-                        Your request has been logged. A specialist from our Enterprise Solutions team will contact you within one business day.
-                    </p>
-                    <button 
-                        onClick={() => {
-                            setStatus('idle');
-                            setFormData({ companyName: '', contactPerson: '', email: '', hiringNeeds: '' });
-                        }}
-                        className="bg-gray-900 text-white hover:bg-black px-10 py-3 rounded-full font-bold transition-colors"
-                    >
-                        New Inquiry
-                    </button>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Contact Officer</label>
+                        <input 
+                            type="text" 
+                            name="name"
+                            required
+                            value={formData.contactPerson}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
+                            placeholder="Full Name & Title" 
+                        />
+                    </div>
                 </div>
-            ) : (
-                <>
-                    <h2 className="text-3xl font-bold text-center text-gray-900 mb-10 tracking-tight">Submit Talent Request</h2>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Company Name</label>
-                                <input 
-                                    type="text" 
-                                    name="companyName"
-                                    required
-                                    value={formData.companyName}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
-                                    placeholder="Registered Name" 
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Contact Officer</label>
-                                <input 
-                                    type="text" 
-                                    name="contactPerson"
-                                    required
-                                    value={formData.contactPerson}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
-                                    placeholder="Full Name & Title" 
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Professional Email</label>
-                            <input 
-                                type="email" 
-                                name="email"
-                                required
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
-                                placeholder="office@company.com" 
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Staffing Requirements</label>
-                            <textarea 
-                                name="hiringNeeds"
-                                required
-                                value={formData.hiringNeeds}
-                                onChange={handleChange}
-                                rows={4} 
-                                className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all resize-none" 
-                                placeholder="Describe the specific roles, required skillsets, and volume needed..."
-                            ></textarea>
-                        </div>
-                        <button 
-                            type="submit" 
-                            disabled={status === 'submitting'}
-                            className="w-full bg-rose-600 text-white py-4 rounded-xl font-bold hover:bg-rose-700 transition-all disabled:bg-rose-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-rose-600/20"
-                        >
-                            {status === 'submitting' ? (
-                                <><Loader2 className="w-5 h-5 animate-spin" /> Processing...</>
-                            ) : (
-                                <>Submit Official Inquiry <Send className="w-5 h-5 ml-2" /></>
-                            )}
-                        </button>
-                    </form>
-                </>
-            )}
+                <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Professional Email</label>
+                    <input 
+                        type="email" 
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
+                        placeholder="office@company.com" 
+                    />
+                </div>
+                <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Staffing Requirements</label>
+                    <textarea 
+                        name="message"
+                        required
+                        value={formData.hiringNeeds}
+                        onChange={handleChange}
+                        rows={4} 
+                        className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all resize-none" 
+                        placeholder="Describe the specific roles, required skillsets, and volume needed..."
+                    ></textarea>
+                </div>
+                <button 
+                    type="submit" 
+                    className="w-full bg-rose-600 text-white py-4 rounded-xl font-bold hover:bg-rose-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-rose-600/20"
+                >
+                    Submit Official Inquiry <Send className="w-5 h-5 ml-2" />
+                </button>
+            </form>
         </div>
       </section>
 

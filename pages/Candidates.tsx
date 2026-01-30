@@ -5,11 +5,9 @@ import { useLocation } from 'react-router-dom';
 
 const Candidates: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [uploadState, setUploadState] = useState<'idle' | 'uploading' | 'success'>('idle');
   const [fileName, setFileName] = useState('');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [jobAlertEmail, setJobAlertEmail] = useState('');
-  const [alertSubscribed, setAlertSubscribed] = useState(false);
 
   // Eligibility Check State
   const [showEligibility, setShowEligibility] = useState(false);
@@ -87,29 +85,6 @@ const Candidates: React.FC = () => {
     if (e.target.files && e.target.files[0]) {
       setFileName(e.target.files[0].name);
     }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fileName) return;
-
-    setUploadState('uploading');
-    setTimeout(() => {
-        setUploadState('success');
-        setTimeout(() => {
-            setIsModalOpen(false);
-            setUploadState('idle');
-            setFileName('');
-        }, 2000);
-    }, 1500);
-  };
-
-  const handleAlertSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      if(!jobAlertEmail) return;
-      setAlertSubscribed(true);
-      setTimeout(() => setAlertSubscribed(false), 3000);
-      setJobAlertEmail('');
   };
 
   const handleEligibilityAnswer = (key: string, value: string) => {
@@ -393,9 +368,12 @@ const Candidates: React.FC = () => {
                       <div className="flex-grow text-center md:text-left">
                           <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss an Opportunity</h3>
                           <p className="text-gray-600 mb-4">Get notified instantly when new jobs match your skills and preferred destination.</p>
-                          <form onSubmit={handleAlertSubmit} className="flex gap-2">
+                          <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="flex gap-2">
+                              <input type="hidden" name="_subject" value="Job Alert Subscription" />
+                              <input type="hidden" name="_captcha" value="false" />
                               <input 
                                   type="email" 
+                                  name="email"
                                   placeholder="Your email address" 
                                   required
                                   value={jobAlertEmail}
@@ -403,7 +381,7 @@ const Candidates: React.FC = () => {
                                   className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"
                               />
                               <button type="submit" className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
-                                  {alertSubscribed ? <Check /> : 'Alert Me'}
+                                  Alert Me
                               </button>
                           </form>
                       </div>
@@ -473,65 +451,51 @@ const Candidates: React.FC = () => {
                     <X size={24} />
                 </button>
 
-                {uploadState === 'success' ? (
-                    <div className="text-center py-8">
-                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Check className="w-8 h-8 text-green-600" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">CV Received!</h3>
-                        <p className="text-gray-500">Good luck! Our team will review your profile shortly.</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Submit Your CV</h2>
+                <p className="text-gray-500 mb-6">Upload your resume to join our talent pool.</p>
+
+                <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" encType="multipart/form-data">
+                    <input type="hidden" name="_subject" value="New CV Application" />
+                    <input type="hidden" name="_captcha" value="false" />
+                    
+                    <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" name="name" className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none" required placeholder="John Doe" />
                     </div>
-                ) : (
-                    <>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Submit Your CV</h2>
-                        <p className="text-gray-500 mb-6">Upload your resume to join our talent pool.</p>
-
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                                <input type="text" className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none" required placeholder="John Doe" />
-                            </div>
-                            
-                            <div className="mb-8">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Resume (PDF/Doc)</label>
-                                <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
-                                    <input 
-                                        type="file" 
-                                        onChange={handleFileChange}
-                                        accept=".pdf,.doc,.docx"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        required 
-                                    />
-                                    {fileName ? (
-                                        <div className="flex items-center justify-center gap-2 text-rose-600 font-medium">
-                                            <Briefcase size={20} />
-                                            {fileName}
-                                        </div>
-                                    ) : (
-                                        <div className="flex flex-col items-center text-gray-400">
-                                            <Upload size={32} className="mb-2" />
-                                            <span className="text-sm">Click to upload or drag and drop</span>
-                                        </div>
-                                    )}
+                    
+                    <div className="mb-8">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Resume (PDF/Doc)</label>
+                        <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
+                            <input 
+                                type="file" 
+                                name="resume"
+                                onChange={handleFileChange}
+                                accept=".pdf,.doc,.docx"
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                required 
+                            />
+                            {fileName ? (
+                                <div className="flex items-center justify-center gap-2 text-rose-600 font-medium">
+                                    <Briefcase size={20} />
+                                    {fileName}
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="flex flex-col items-center text-gray-400">
+                                    <Upload size={32} className="mb-2" />
+                                    <span className="text-sm">Click to upload or drag and drop</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
-                            <button 
-                                type="submit" 
-                                disabled={uploadState === 'uploading' || !fileName}
-                                className="w-full bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                            >
-                                {uploadState === 'uploading' ? (
-                                    <>
-                                        <Loader2 className="animate-spin" /> Uploading...
-                                    </>
-                                ) : (
-                                    'Submit Application'
-                                )}
-                            </button>
-                        </form>
-                    </>
-                )}
+                    <button 
+                        type="submit" 
+                        disabled={!fileName}
+                        className="w-full bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                        Submit Application
+                    </button>
+                </form>
             </div>
         </div>
       )}

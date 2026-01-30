@@ -4,15 +4,6 @@ import FadeIn from './FadeIn';
 
 const Newsletter: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'subscribed'>('idle');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setStatus('subscribed');
-    setEmail('');
-    setTimeout(() => setStatus('idle'), 3000);
-  };
 
   return (
     <section className="bg-rose-600 py-20 relative overflow-hidden">
@@ -26,9 +17,12 @@ const Newsletter: React.FC = () => {
               Get the latest job alerts, migration policy updates, and career tips for international professionals delivered directly to your inbox.
             </p>
             
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+            <form action="https://formsubmit.co/europathcareers@gmail.com" method="POST" className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+              <input type="hidden" name="_subject" value="Newsletter Subscription" />
+              <input type="hidden" name="_captcha" value="false" />
               <input 
                 type="email" 
+                name="email"
                 placeholder="Enter your email address" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -39,11 +33,7 @@ const Newsletter: React.FC = () => {
                 type="submit" 
                 className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
               >
-                {status === 'subscribed' ? (
-                  <>Subscribed <Check size={20} /></>
-                ) : (
-                  <>Subscribe <Send size={20} className="group-hover:translate-x-1 transition-transform" /></>
-                )}
+                Subscribe <Send size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
             <p className="text-rose-200 text-xs mt-4">We respect your privacy. Unsubscribe at any time.</p>
