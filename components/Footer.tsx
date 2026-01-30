@@ -91,14 +91,14 @@ const Footer: React.FC = () => {
                       <Mail size={18} className="text-rose-600 flex-shrink-0" />
                       <div>
                         <p className="text-sm font-bold text-gray-900">Email Support</p>
-                        <a href="mailto:info@europathcareers.com" className="text-sm text-gray-500 hover:text-rose-600 transition-colors">info@europathcareers.com</a>
+                        <a href="mailto:europathcareers@gmail.com" className="text-sm text-gray-500 hover:text-rose-600 transition-colors">europathcareers@gmail.com</a>
                       </div>
                     </li>
                     <li className="flex gap-3">
                       <Phone size={18} className="text-rose-600 flex-shrink-0" />
                       <div>
                         <p className="text-sm font-bold text-gray-900">Global Hotline</p>
-                        <p className="text-sm text-gray-500">+44 (0) 20 7946 0123</p>
+                        <p className="text-sm text-gray-500">+4915210755401</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
