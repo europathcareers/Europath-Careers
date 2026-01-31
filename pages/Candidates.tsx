@@ -68,16 +68,14 @@ const Candidates: React.FC = () => {
   const handleJobAlertSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `New Job Alert Subscription: ${jobAlertEmail}`;
-    window.open(`https://wa.me/4915210755401?text=${encodeURIComponent(message)}`, '_blank');
-    window.location.href = `mailto:eurojobscareers@gmail.com?subject=Job Alert Subscription&body=${encodeURIComponent(message)}`;
+    window.open(`https://wa.me/17743739285?text=${encodeURIComponent(message)}`, '_blank');
     setJobAlertSubmitted(true);
   };
 
   const handleCvSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `New CV Submission:\nName: ${cvFormData.name}\nEmail: ${cvFormData.email}\nPhone: ${cvFormData.phone}\nRole: ${cvFormData.role}\nCV Link: ${cvFormData.link}`;
-    window.open(`https://wa.me/4915210755401?text=${encodeURIComponent(message)}`, '_blank');
-    window.location.href = `mailto:eurojobscareers@gmail.com?subject=CV Submission - ${cvFormData.name}&body=${encodeURIComponent(message)}`;
+    window.open(`https://wa.me/17743739285?text=${encodeURIComponent(message)}`, '_blank');
     setCvSubmitted(true);
     setTimeout(handleModalClose, 3000);
   };

@@ -9,8 +9,7 @@ const Newsletter: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `New Newsletter Subscription: ${email}`;
-    window.open(`https://wa.me/4915210755401?text=${encodeURIComponent(message)}`, '_blank');
-    window.location.href = `mailto:eurojobscareers@gmail.com?subject=Newsletter Subscription&body=${encodeURIComponent(message)}`;
+    window.open(`https://wa.me/17743739285?text=${encodeURIComponent(message)}`, '_blank');
     setSubmitted(true);
   };
 
@@ -27,7 +26,7 @@ const Newsletter: React.FC = () => {
                 </div>
                 <h2 className="text-3xl font-bold text-white mb-4">You're Subscribed!</h2>
                 <p className="text-rose-100 text-lg mb-2">Thank you for joining EuroJobs Careers.</p>
-                <p className="text-rose-200 text-sm">We've opened WhatsApp and your email client to confirm.</p>
+                <p className="text-rose-200 text-sm">We've opened WhatsApp to confirm your subscription.</p>
               </div>
             ) : (
               <>

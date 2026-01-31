@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
                       <Phone size={18} className="text-rose-600 flex-shrink-0" />
                       <div>
                         <p className="text-sm font-bold text-gray-900">Global Hotline</p>
-                        <p className="text-sm text-gray-500">+4915210755401</p>
+                        <p className="text-sm text-gray-500">+1 774 373 9285</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
