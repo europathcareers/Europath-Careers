@@ -18,6 +18,8 @@ const Candidates: React.FC = () => {
   
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [jobAlertEmail, setJobAlertEmail] = useState('');
+  const [jobAlertSubmitted, setJobAlertSubmitted] = useState(false);
+  const [cvSubmitted, setCvSubmitted] = useState(false);
 
   // Eligibility Check State
   const [showEligibility, setShowEligibility] = useState(false);
@@ -59,7 +61,25 @@ const Candidates: React.FC = () => {
       setTimeout(() => {
           setCvStep(1);
           setCvFormData({ name: '', email: '', phone: '', role: '', link: '' });
+          setCvSubmitted(false);
       }, 300);
+  };
+
+  const handleJobAlertSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `New Job Alert Subscription: ${jobAlertEmail}`;
+    window.open(`https://wa.me/4915210755401?text=${encodeURIComponent(message)}`, '_blank');
+    window.location.href = `mailto:eurojobscareers@gmail.com?subject=Job Alert Subscription&body=${encodeURIComponent(message)}`;
+    setJobAlertSubmitted(true);
+  };
+
+  const handleCvSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `New CV Submission:\nName: ${cvFormData.name}\nEmail: ${cvFormData.email}\nPhone: ${cvFormData.phone}\nRole: ${cvFormData.role}\nCV Link: ${cvFormData.link}`;
+    window.open(`https://wa.me/4915210755401?text=${encodeURIComponent(message)}`, '_blank');
+    window.location.href = `mailto:eurojobscareers@gmail.com?subject=CV Submission - ${cvFormData.name}&body=${encodeURIComponent(message)}`;
+    setCvSubmitted(true);
+    setTimeout(handleModalClose, 3000);
   };
 
   const jobs = [
@@ -377,26 +397,29 @@ const Candidates: React.FC = () => {
                       <div className="flex-grow text-center md:text-left">
                           <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss an Opportunity</h3>
                           <p className="text-gray-600 mb-4">Get notified instantly when new jobs match your skills and preferred destination.</p>
-                          <form 
-                              action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
-                              method="POST" 
-                              target="_blank"
-                              className="flex gap-2"
-                          >
-                              {/* REPLACE 'entry.YOUR_EMAIL_ID' WITH ACTUAL GOOGLE FORM ENTRY ID */}
-                              <input 
-                                  type="email" 
-                                  name="entry.YOUR_EMAIL_ID"
-                                  placeholder="Your email address" 
-                                  required
-                                  value={jobAlertEmail}
-                                  onChange={(e) => setJobAlertEmail(e.target.value)}
-                                  className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"
-                              />
-                              <button type="submit" className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
-                                  Alert Me
-                              </button>
-                          </form>
+                          {jobAlertSubmitted ? (
+                              <div className="flex items-center gap-3 text-green-600 font-bold animate-in fade-in duration-500">
+                                  <CheckCircle size={24} />
+                                  <span>Alert subscription successful!</span>
+                              </div>
+                          ) : (
+                              <form
+                                  onSubmit={handleJobAlertSubmit}
+                                  className="flex gap-2"
+                              >
+                                  <input
+                                      type="email"
+                                      placeholder="Your email address"
+                                      required
+                                      value={jobAlertEmail}
+                                      onChange={(e) => setJobAlertEmail(e.target.value)}
+                                      className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"
+                                  />
+                                  <button type="submit" className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
+                                      Alert Me
+                                  </button>
+                              </form>
+                          )}
                       </div>
                   </div>
               </FadeIn>
@@ -474,12 +497,18 @@ const Candidates: React.FC = () => {
                     <div className={`h-full bg-rose-600 transition-all duration-500 ease-out ${cvStep === 1 ? 'w-1/2' : 'w-full'}`}></div>
                 </div>
 
-                {/* GOOGLE FORM SUBMISSION */}
+                {/* CV SUBMISSION */}
+                {cvSubmitted ? (
+                    <div className="text-center py-10 animate-in zoom-in-95 duration-500">
+                        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <CheckCircle className="text-green-600 w-10 h-10" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Received!</h3>
+                        <p className="text-gray-500">Your details have been sent. We'll be in touch soon.</p>
+                    </div>
+                ) : (
                 <form 
-                    action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
-                    method="POST" 
-                    target="_blank"
-                    onSubmit={() => setTimeout(handleModalClose, 1500)}
+                    onSubmit={handleCvSubmit}
                 >
                     {/* Step 1: Personal Information */}
                     <div className={cvStep === 1 ? 'block animate-in slide-in-from-right-4 duration-300' : 'hidden'}>
@@ -609,6 +638,7 @@ const Candidates: React.FC = () => {
                         </div>
                     </div>
                 </form>
+                )}
             </div>
         </div>
       )}
