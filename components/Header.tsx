@@ -35,8 +35,12 @@ const Header: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-                <Globe className="h-8 w-8 text-rose-600" />
+            <Link
+                to="/"
+                className="flex items-center gap-2 rounded-lg focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
+                aria-label="EuroJobs Careers Home"
+            >
+                <Globe className="h-8 w-8 text-rose-600" aria-hidden="true" />
                 <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900 tracking-tight leading-none">
                     EuroJobs
@@ -53,7 +57,7 @@ const Header: React.FC = () => {
                 <Link 
                     key={link.name} 
                     to={link.path}
-                    className={`text-sm font-medium transition-colors ${
+                    className={`text-sm font-medium transition-colors rounded-md px-2 py-1 focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none ${
                     isActive(link.path) 
                         ? 'text-rose-600 font-semibold' 
                         : 'text-gray-600 hover:text-rose-600'
@@ -66,22 +70,28 @@ const Header: React.FC = () => {
 
             {/* Mobile Menu Toggle */}
             <button 
-                className="md:hidden text-gray-900"
+                className="md:hidden text-gray-900 p-2 rounded-lg focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
             >
-                {mobileMenuOpen ? <X /> : <Menu />}
+                {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
             </button>
             </div>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-            <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg py-4 px-4 flex flex-col gap-4 animate-in slide-in-from-top-2 z-40">
+            <div
+                id="mobile-menu"
+                className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg py-4 px-4 flex flex-col gap-4 animate-in slide-in-from-top-2 z-40"
+            >
             {navLinks.map((link) => (
                 <Link 
                 key={link.name} 
                 to={link.path}
-                className="text-base font-medium text-gray-800 py-2 border-b border-gray-100"
+                className="text-base font-medium text-gray-800 py-2 border-b border-gray-100 rounded-md px-2 focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
                 onClick={() => setMobileMenuOpen(false)}
                 >
                 {link.name}
