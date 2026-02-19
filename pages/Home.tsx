@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
 import Stats from '../components/Stats';
@@ -8,10 +8,25 @@ import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Newsletter from '../components/Newsletter';
 import FadeIn from '../components/FadeIn';
-import { Play, MapPin, TrendingUp, DollarSign, Newspaper, ArrowRight, Globe, Mail, User, Send } from 'lucide-react';
+import { Play, MapPin, TrendingUp, DollarSign, Newspaper, ArrowRight, Globe, Mail, User, Send, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const myForm = e.target as HTMLFormElement;
+    const formData = new FormData(myForm);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => setIsSubmitted(true))
+      .catch((error) => alert(error));
+  };
+
   return (
     <>
       <SEO
@@ -297,55 +312,73 @@ const Home: React.FC = () => {
             </div>
 
             <div className="md:w-1/2 p-12">
-              <form 
-                  action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
-                  method="POST" 
-                  target="_blank"
-                  className="space-y-6"
-              >
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">I am a...</label>
-                  <div className="flex gap-4">
-                    <label className="flex-1 cursor-pointer">
-                      <input type="radio" name="entry.USER_TYPE" value="Candidate" className="peer sr-only" defaultChecked />
-                      <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
-                        Candidate
-                      </div>
-                    </label>
-                    <label className="flex-1 cursor-pointer">
-                      <input type="radio" name="entry.USER_TYPE" value="Employer" className="peer sr-only" />
-                      <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
-                        Employer
-                      </div>
-                    </label>
+              {isSubmitted ? (
+                <div className="h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in-95">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <CheckCircle className="text-green-600 w-10 h-10" />
                   </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                  <p className="text-gray-600 mb-8">Thank you for reaching out. We'll get back to you as soon as possible.</p>
+                  <button
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-rose-600 font-bold hover:underline"
+                  >
+                    Send another message
+                  </button>
                 </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input type="text" name="entry.NAME_ID" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+              ) : (
+                <form
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">I am a...</label>
+                    <div className="flex gap-4">
+                      <label className="flex-1 cursor-pointer">
+                        <input type="radio" name="userType" value="Candidate" className="peer sr-only" defaultChecked />
+                        <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
+                          Candidate
+                        </div>
+                      </label>
+                      <label className="flex-1 cursor-pointer">
+                        <input type="radio" name="userType" value="Employer" className="peer sr-only" />
+                        <div className="text-center py-3 border border-gray-200 rounded-xl peer-checked:bg-rose-50 peer-checked:border-rose-500 peer-checked:text-rose-700 font-medium transition-all">
+                          Employer
+                        </div>
+                      </label>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input type="email" name="entry.EMAIL_ID" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                    <div className="relative">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <input type="text" name="name" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
-                  <textarea name="entry.MESSAGE_ID" rows={4} placeholder="How can we help you?" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all resize-none"></textarea>
-                </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <input type="email" name="email" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all" />
+                    </div>
+                  </div>
 
-                <button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
-                  Send Message <Send size={18} />
-                </button>
-              </form>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
+                    <textarea name="message" rows={4} placeholder="How can we help you?" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all resize-none"></textarea>
+                  </div>
+
+                  <button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                    Send Message <Send size={18} />
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

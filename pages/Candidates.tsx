@@ -18,6 +18,7 @@ const Candidates: React.FC = () => {
   
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [jobAlertEmail, setJobAlertEmail] = useState('');
+  const [jobAlertSubmitted, setJobAlertSubmitted] = useState(false);
 
   // Eligibility Check State
   const [showEligibility, setShowEligibility] = useState(false);
@@ -54,12 +55,40 @@ const Candidates: React.FC = () => {
       }
   };
 
+  const [cvSubmitted, setCvSubmitted] = useState(false);
+
   const handleModalClose = () => {
       setIsModalOpen(false);
       setTimeout(() => {
           setCvStep(1);
           setCvFormData({ name: '', email: '', phone: '', role: '', link: '' });
+          setCvSubmitted(false);
       }, 300);
+  };
+
+  const handleJobAlertSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const myForm = e.target as HTMLFormElement;
+    const formData = new FormData(myForm);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => setJobAlertSubmitted(true))
+      .catch((error) => alert(error));
+  };
+
+  const handleCvSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const myForm = e.target as HTMLFormElement;
+    const formData = new FormData(myForm);
+    fetch("/", {
+      method: "POST",
+      body: formData,
+    })
+      .then(() => setCvSubmitted(true))
+      .catch((error) => alert(error));
   };
 
   const jobs = [
@@ -138,6 +167,12 @@ const Candidates: React.FC = () => {
               <p className="text-xl text-gray-600 mb-8">
                 We help skilled professionals find safe, legal, and rewarding careers in Europe. No hidden fees, no false promises.
               </p>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-rose-200"
+              >
+                Submit Your CV
+              </button>
             </FadeIn>
           </div>
         </div>
@@ -232,6 +267,12 @@ const Candidates: React.FC = () => {
                                   </div>
                                   <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
                                       <span className="text-xs text-gray-400">{job.posted}</span>
+                                      <button
+                                        onClick={() => setIsModalOpen(true)}
+                                        className="text-sm font-bold text-rose-600 hover:text-rose-700 transition-colors"
+                                      >
+                                        Apply Now &rarr;
+                                      </button>
                                   </div>
                               </div>
                           </FadeIn>
@@ -377,26 +418,33 @@ const Candidates: React.FC = () => {
                       <div className="flex-grow text-center md:text-left">
                           <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss an Opportunity</h3>
                           <p className="text-gray-600 mb-4">Get notified instantly when new jobs match your skills and preferred destination.</p>
-                          <form 
-                              action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
-                              method="POST" 
-                              target="_blank"
-                              className="flex gap-2"
-                          >
-                              {/* REPLACE 'entry.YOUR_EMAIL_ID' WITH ACTUAL GOOGLE FORM ENTRY ID */}
-                              <input 
-                                  type="email" 
-                                  name="entry.YOUR_EMAIL_ID"
-                                  placeholder="Your email address" 
-                                  required
-                                  value={jobAlertEmail}
-                                  onChange={(e) => setJobAlertEmail(e.target.value)}
-                                  className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"
-                              />
-                              <button type="submit" className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
-                                  Alert Me
-                              </button>
-                          </form>
+                          {jobAlertSubmitted ? (
+                              <div className="flex items-center gap-3 text-green-600 font-bold animate-in fade-in slide-in-from-left-2">
+                                  <CheckCircle size={20} /> Alert set successfully!
+                              </div>
+                          ) : (
+                              <form
+                                  name="job-alerts"
+                                  method="POST"
+                                  data-netlify="true"
+                                  onSubmit={handleJobAlertSubmit}
+                                  className="flex gap-2"
+                              >
+                                  <input type="hidden" name="form-name" value="job-alerts" />
+                                  <input
+                                      type="email"
+                                      name="email"
+                                      placeholder="Your email address"
+                                      required
+                                      value={jobAlertEmail}
+                                      onChange={(e) => setJobAlertEmail(e.target.value)}
+                                      className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"
+                                  />
+                                  <button type="submit" className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
+                                      Alert Me
+                                  </button>
+                              </form>
+                          )}
                       </div>
                   </div>
               </FadeIn>
@@ -455,7 +503,7 @@ const Candidates: React.FC = () => {
 
       {/* CV Modal (Multi-step Form) */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200" role="dialog" aria-modal="true">
             <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl scale-100 animate-in zoom-in-95 duration-200 relative">
                 <button 
                     onClick={handleModalClose}
@@ -474,15 +522,31 @@ const Candidates: React.FC = () => {
                     <div className={`h-full bg-rose-600 transition-all duration-500 ease-out ${cvStep === 1 ? 'w-1/2' : 'w-full'}`}></div>
                 </div>
 
-                {/* GOOGLE FORM SUBMISSION */}
-                <form 
-                    action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
-                    method="POST" 
-                    target="_blank"
-                    onSubmit={() => setTimeout(handleModalClose, 1500)}
-                >
-                    {/* Step 1: Personal Information */}
-                    <div className={cvStep === 1 ? 'block animate-in slide-in-from-right-4 duration-300' : 'hidden'}>
+                {cvSubmitted ? (
+                    <div className="text-center py-12 animate-in zoom-in-95">
+                        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <CheckCircle className="text-green-600 w-10 h-10" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Sent!</h3>
+                        <p className="text-gray-600 mb-8">Your CV has been added to our talent pool. We will contact you if your profile matches an open position.</p>
+                        <button
+                            onClick={handleModalClose}
+                            className="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-black transition-all"
+                        >
+                            Close
+                        </button>
+                    </div>
+                ) : (
+                    <form
+                        name="cv-submission"
+                        method="POST"
+                        data-netlify="true"
+                        encType="multipart/form-data"
+                        onSubmit={handleCvSubmit}
+                    >
+                        <input type="hidden" name="form-name" value="cv-submission" />
+                        {/* Step 1: Personal Information */}
+                        <div className={cvStep === 1 ? 'block animate-in slide-in-from-right-4 duration-300' : 'hidden'}>
                         <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">1. Personal Details</h3>
                         
                         <div className="space-y-4">
@@ -492,7 +556,7 @@ const Candidates: React.FC = () => {
                                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
                                         type="text" 
-                                        name="entry.YOUR_NAME_ID" 
+                                        name="name"
                                         data-field="name"
                                         value={cvFormData.name}
                                         onChange={handleCvChange}
@@ -509,7 +573,7 @@ const Candidates: React.FC = () => {
                                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
                                         type="email" 
-                                        name="entry.YOUR_EMAIL_ID" 
+                                        name="email"
                                         data-field="email"
                                         value={cvFormData.email}
                                         onChange={handleCvChange}
@@ -526,13 +590,13 @@ const Candidates: React.FC = () => {
                                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
                                         type="tel" 
-                                        name="entry.YOUR_PHONE_ID" 
+                                        name="phone"
                                         data-field="phone"
                                         value={cvFormData.phone}
                                         onChange={handleCvChange}
                                         className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
                                         required 
-                                        placeholder="+1 234 567 890" 
+                                        placeholder="+1 774 373 9285"
                                     />
                                 </div>
                             </div>
@@ -561,7 +625,7 @@ const Candidates: React.FC = () => {
                                     <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
                                         type="text" 
-                                        name="entry.YOUR_ROLE_ID" 
+                                        name="role"
                                         data-field="role"
                                         value={cvFormData.role}
                                         onChange={handleCvChange}
@@ -573,21 +637,18 @@ const Candidates: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Link to Resume (Drive/Dropbox/LinkedIn)</label>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Upload CV (PDF/Word)</label>
                                 <div className="relative">
-                                    <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <FileDown className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
-                                        type="url" 
-                                        name="entry.YOUR_CV_LINK_ID" 
-                                        data-field="link"
-                                        value={cvFormData.link}
-                                        onChange={handleCvChange}
-                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
+                                        type="file"
+                                        name="cv"
                                         required 
-                                        placeholder="https://" 
+                                        accept=".pdf,.doc,.docx"
+                                        className="w-full pl-10 pr-4 py-2 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-sm text-gray-500 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100"
                                     />
                                 </div>
-                                <p className="text-xs text-gray-500 mt-2">Ensure the link is publicly accessible.</p>
+                                <p className="text-xs text-gray-500 mt-2">Maximum file size: 5MB.</p>
                             </div>
                         </div>
 
@@ -601,7 +662,7 @@ const Candidates: React.FC = () => {
                             </button>
                             <button 
                                 type="submit" 
-                                disabled={!cvFormData.role || !cvFormData.link}
+                                disabled={!cvFormData.role}
                                 className="w-2/3 bg-rose-600 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 Submit Application <CheckCircle size={18} />
@@ -609,6 +670,7 @@ const Candidates: React.FC = () => {
                         </div>
                     </div>
                 </form>
+                )}
             </div>
         </div>
       )}
