@@ -610,7 +610,7 @@ const Candidates: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1.5">LinkedIn or Portfolio Link</label>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">LinkedIn or Portfolio Link (Optional)</label>
                                 <div className="relative">
                                     <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
