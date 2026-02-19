@@ -11,6 +11,11 @@ const Employers: React.FC = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const myForm = e.target as HTMLFormElement;
@@ -303,7 +308,7 @@ const Employers: React.FC = () => {
                             name="companyName"
                             required
                             value={formData.companyName}
-                            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                            onChange={handleChange}
                             className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                             placeholder="Registered Name" 
                         />
@@ -315,7 +320,7 @@ const Employers: React.FC = () => {
                             name="contactPerson"
                             required
                             value={formData.contactPerson}
-                            onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+                            onChange={handleChange}
                             className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                             placeholder="Full Name & Title" 
                         />
@@ -328,7 +333,7 @@ const Employers: React.FC = () => {
                         name="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                         placeholder="office@company.com" 
                     />
@@ -339,7 +344,7 @@ const Employers: React.FC = () => {
                         name="hiringNeeds"
                         required
                         value={formData.hiringNeeds}
-                        onChange={(e) => setFormData({ ...formData, hiringNeeds: e.target.value })}
+                        onChange={handleChange}
                         rows={4} 
                         className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all resize-none" 
                         placeholder="Describe the specific roles, required skillsets, and volume needed..."

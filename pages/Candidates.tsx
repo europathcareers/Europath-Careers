@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ClipboardList, UserCheck, Plane, Briefcase, X, Link as LinkIcon, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, FileDown, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle, Mail, Phone, User } from 'lucide-react';
+import { ClipboardList, UserCheck, Plane, Briefcase, X, Link as LinkIcon, Check, Loader2, Heart, Home, DollarSign, ChevronDown, ChevronUp, ArrowRight, Bell, PlayCircle, Star, Search, MapPin, Filter, CheckCircle, AlertCircle, Mail, Phone, User } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import { useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
@@ -85,7 +85,8 @@ const Candidates: React.FC = () => {
     const formData = new FormData(myForm);
     fetch("/", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
     })
       .then(() => setCvSubmitted(true))
       .catch((error) => alert(error));
@@ -147,7 +148,7 @@ const Candidates: React.FC = () => {
       if (eligibilityAnswers.experience === '5+') {
           return { title: "Likely Eligible: Skilled Worker Visa", desc: "Your extensive experience qualifies you for accelerated programs." };
       }
-      return { title: "Consultation Recommended", desc: "We need to assess your specific qualifications further. Please submit your CV." };
+      return { title: "Consultation Recommended", desc: "We need to assess your specific qualifications further. Please join our talent pool." };
   };
 
   return (
@@ -171,7 +172,7 @@ const Candidates: React.FC = () => {
                 onClick={() => setIsModalOpen(true)}
                 className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-rose-200"
               >
-                Submit Your CV
+                Join Our Talent Pool
               </button>
             </FadeIn>
           </div>
@@ -328,33 +329,6 @@ const Candidates: React.FC = () => {
         </div>
       </section>
 
-      {/* CV Template Section */}
-      <section className="py-20 bg-gray-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-gray-800 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 border border-gray-700">
-                  <div className="md:w-1/2">
-                      <div className="inline-flex items-center gap-2 bg-rose-900/50 text-rose-300 px-3 py-1 rounded-full text-sm font-bold mb-4 border border-rose-800">
-                          <FileDown size={16} /> Free Resource
-                      </div>
-                      <h2 className="text-3xl font-bold mb-4">ATS-Friendly Europass CV Template</h2>
-                      <p className="text-gray-300 mb-8 leading-relaxed">
-                          European employers prefer the Europass format. Download our free, optimized template to ensure your application passes automated screening systems and gets noticed by recruiters.
-                      </p>
-                      <button className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-colors">
-                          Download Template <FileDown size={20} />
-                      </button>
-                  </div>
-                  <div className="md:w-1/2 relative">
-                      <div className="absolute -inset-4 bg-rose-500/20 blur-xl rounded-full"></div>
-                      <img 
-                          src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                          alt="CV Template Preview" 
-                          className="relative rounded-lg shadow-2xl border border-gray-600 rotate-2 hover:rotate-0 transition-transform duration-500"
-                      />
-                  </div>
-              </div>
-          </div>
-      </section>
 
       {/* Process Section */}
       <section className="py-20 bg-gray-50">
@@ -513,7 +487,7 @@ const Candidates: React.FC = () => {
                 </button>
 
                 <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900">Submit Your CV</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">Join Talent Pool</h2>
                     <p className="text-gray-500 text-sm">Join our global talent pool in just a few steps.</p>
                 </div>
 
@@ -528,7 +502,7 @@ const Candidates: React.FC = () => {
                             <CheckCircle className="text-green-600 w-10 h-10" />
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Sent!</h3>
-                        <p className="text-gray-600 mb-8">Your CV has been added to our talent pool. We will contact you if your profile matches an open position.</p>
+                        <p className="text-gray-600 mb-8">Your profile has been added to our talent pool. We will contact you if your skills match an open position.</p>
                         <button
                             onClick={handleModalClose}
                             className="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-black transition-all"
@@ -541,7 +515,6 @@ const Candidates: React.FC = () => {
                         name="cv-submission"
                         method="POST"
                         data-netlify="true"
-                        encType="multipart/form-data"
                         onSubmit={handleCvSubmit}
                     >
                         <input type="hidden" name="form-name" value="cv-submission" />
@@ -637,18 +610,19 @@ const Candidates: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1.5">Upload CV (PDF/Word)</label>
+                                <label className="block text-xs font-bold text-gray-500 mb-1.5">LinkedIn or Portfolio Link</label>
                                 <div className="relative">
-                                    <FileDown className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                    <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                     <input 
-                                        type="file"
-                                        name="cv"
-                                        required 
-                                        accept=".pdf,.doc,.docx"
-                                        className="w-full pl-10 pr-4 py-2 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-sm text-gray-500 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100"
+                                        type="url"
+                                        name="link"
+                                        data-field="link"
+                                        value={cvFormData.link}
+                                        onChange={handleCvChange}
+                                        className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900"
+                                        placeholder="https://linkedin.com/in/username"
                                     />
                                 </div>
-                                <p className="text-xs text-gray-500 mt-2">Maximum file size: 5MB.</p>
                             </div>
                         </div>
 
