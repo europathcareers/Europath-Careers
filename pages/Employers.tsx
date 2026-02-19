@@ -9,6 +9,20 @@ const Employers: React.FC = () => {
     email: '',
     hiringNeeds: ''
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const myForm = e.target as HTMLFormElement;
+    const formData = new FormData(myForm);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => setIsSubmitted(true))
+      .catch((error) => alert(error));
+  };
 
   // Interactive States
   const [brochureStatus, setBrochureStatus] = useState<'idle' | 'loading' | 'success'>('idle');
@@ -19,10 +33,6 @@ const Employers: React.FC = () => {
   const [recruitmentTime, setRecruitmentTime] = useState(6); // months
   
   const estimatedSavings = Math.round((localSalary * 0.2) + (recruitmentTime * 2000) - 5000);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleDownloadBrochure = () => {
     setBrochureStatus('loading');
@@ -258,36 +268,54 @@ const Employers: React.FC = () => {
       <section id="inquiry-form" className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-50 p-8 md:p-16 rounded-3xl border border-gray-100 shadow-sm">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-10 tracking-tight">Submit Talent Request</h2>
-            <form 
-                action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" 
+
+            {isSubmitted ? (
+              <div className="text-center py-12 animate-in zoom-in-95">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="text-green-600 w-10 h-10" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Inquiry Received</h3>
+                <p className="text-gray-600 mb-8">Thank you for your request. Our partnership team will contact you within 24 business hours.</p>
+                <button
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setFormData({ companyName: '', contactPerson: '', email: '', hiringNeeds: '' });
+                  }}
+                  className="text-rose-600 font-bold hover:underline"
+                >
+                  Submit another request
+                </button>
+              </div>
+            ) : (
+              <form
+                name="employer-inquiry"
                 method="POST" 
-                target="_blank"
+                data-netlify="true"
+                onSubmit={handleSubmit}
                 className="space-y-6"
-            >
-                
+              >
+                <input type="hidden" name="form-name" value="employer-inquiry" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Company Name</label>
-                        {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                         <input 
                             type="text" 
-                            name="entry.YOUR_COMPANY_ID"
+                            name="companyName"
                             required
                             value={formData.companyName}
-                            onChange={handleChange}
+                            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                             className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                             placeholder="Registered Name" 
                         />
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Contact Officer</label>
-                        {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                         <input 
                             type="text" 
-                            name="entry.YOUR_NAME_ID"
+                            name="contactPerson"
                             required
                             value={formData.contactPerson}
-                            onChange={handleChange}
+                            onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
                             className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                             placeholder="Full Name & Title" 
                         />
@@ -295,25 +323,23 @@ const Employers: React.FC = () => {
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Professional Email</label>
-                    {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                     <input 
                         type="email" 
-                        name="entry.YOUR_EMAIL_ID"
+                        name="email"
                         required
                         value={formData.email}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all" 
                         placeholder="office@company.com" 
                     />
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Staffing Requirements</label>
-                    {/* REPLACE WITH ACTUAL GOOGLE FORM ENTRY ID */}
                     <textarea 
-                        name="entry.YOUR_MESSAGE_ID"
+                        name="hiringNeeds"
                         required
                         value={formData.hiringNeeds}
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({ ...formData, hiringNeeds: e.target.value })}
                         rows={4} 
                         className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all resize-none" 
                         placeholder="Describe the specific roles, required skillsets, and volume needed..."
@@ -325,7 +351,8 @@ const Employers: React.FC = () => {
                 >
                     Submit Official Inquiry <Send className="w-5 h-5 ml-2" />
                 </button>
-            </form>
+              </form>
+            )}
         </div>
       </section>
 
