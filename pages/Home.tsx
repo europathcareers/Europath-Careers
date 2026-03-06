@@ -17,13 +17,21 @@ const Home: React.FC = () => {
     e.preventDefault();
     const myForm = e.target as HTMLFormElement;
     const formData = new FormData(myForm);
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => setIsSubmitted(true))
-      .catch((error) => alert(error));
+
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const userType = formData.get('userType');
+    const message = formData.get('message');
+
+    const text = `New Contact Form Submission:
+- I am a: ${userType}
+- Name: ${name}
+- Email: ${email}
+- Message: ${message}`;
+
+    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsSubmitted(true);
   };
 
   return (
