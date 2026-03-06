@@ -6,7 +6,6 @@ import Services from '../components/Services';
 import Commitment from '../components/Commitment';
 import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
-import Newsletter from '../components/Newsletter';
 import FadeIn from '../components/FadeIn';
 import { Play, MapPin, TrendingUp, DollarSign, Newspaper, ArrowRight, Globe, Mail, User, Send, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -385,7 +384,6 @@ const Home: React.FC = () => {
       </section>
 
       <Testimonials />
-      <Newsletter />
     </>
   );
 };
