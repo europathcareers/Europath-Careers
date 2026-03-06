@@ -20,13 +20,21 @@ const Employers: React.FC = () => {
     e.preventDefault();
     const myForm = e.target as HTMLFormElement;
     const formData = new FormData(myForm);
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => setIsSubmitted(true))
-      .catch((error) => alert(error));
+
+    const companyName = formData.get('companyName');
+    const contactPerson = formData.get('contactPerson');
+    const email = formData.get('email');
+    const hiringNeeds = formData.get('hiringNeeds');
+
+    const text = `New Employer Talent Request:
+- Company: ${companyName}
+- Contact Person: ${contactPerson}
+- Email: ${email}
+- Hiring Needs: ${hiringNeeds}`;
+
+    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsSubmitted(true);
   };
 
   // Interactive States

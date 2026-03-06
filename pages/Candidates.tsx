@@ -70,26 +70,37 @@ const Candidates: React.FC = () => {
     e.preventDefault();
     const myForm = e.target as HTMLFormElement;
     const formData = new FormData(myForm);
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => setJobAlertSubmitted(true))
-      .catch((error) => alert(error));
+    const email = formData.get('email');
+
+    const text = `New Job Alert Request:
+- Email: ${email}`;
+
+    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setJobAlertSubmitted(true);
   };
 
   const handleCvSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const myForm = e.target as HTMLFormElement;
     const formData = new FormData(myForm);
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => setCvSubmitted(true))
-      .catch((error) => alert(error));
+
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const phone = formData.get('phone');
+    const role = formData.get('role');
+    const link = formData.get('link');
+
+    const text = `New Talent Pool Application:
+- Name: ${name}
+- Email: ${email}
+- Phone: ${phone}
+- Preferred Role: ${role}
+- Link: ${link}`;
+
+    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setCvSubmitted(true);
   };
 
   const jobs = [
