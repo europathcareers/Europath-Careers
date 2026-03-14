@@ -29,7 +29,7 @@ const Home: React.FC = () => {
 - Email: ${email}
 - Message: ${message}`;
 
-    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/18032587664?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
     setIsSubmitted(true);
   };

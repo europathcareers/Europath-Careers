@@ -32,7 +32,7 @@ const Employers: React.FC = () => {
 - Email: ${email}
 - Hiring Needs: ${hiringNeeds}`;
 
-    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/18032587664?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
     setIsSubmitted(true);
   };
