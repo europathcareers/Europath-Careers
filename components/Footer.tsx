@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
                       <div>
                         <p className="text-sm font-bold text-gray-900">Global Hotline</p>
                         <a href="https://wa.me/21686762831" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-rose-600 transition-colors block">+21 68 676 2831</a>
-                        <a href="https://wa.me/17743739285" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-rose-600 transition-colors block">+1 774 373 9285</a>
+                        <a href="https://wa.me/18032587664" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-rose-600 transition-colors block">+1 803 258 7664</a>
                       </div>
                     </li>
                     <li className="flex gap-3">

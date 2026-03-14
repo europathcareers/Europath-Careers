@@ -75,7 +75,7 @@ const Candidates: React.FC = () => {
     const text = `New Job Alert Request:
 - Email: ${email}`;
 
-    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/18032587664?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
     setJobAlertSubmitted(true);
   };
@@ -98,7 +98,7 @@ const Candidates: React.FC = () => {
 - Preferred Role: ${role}
 - Link: ${link}`;
 
-    const whatsappUrl = `https://wa.me/17743739285?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/18032587664?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
     setCvSubmitted(true);
   };
@@ -580,7 +580,7 @@ const Candidates: React.FC = () => {
                                         onChange={handleCvChange}
                                         className="w-full pl-10 pr-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-gray-900" 
                                         required 
-                                        placeholder="+1 774 373 9285"
+                                        placeholder="+1 803 258 7664"
                                     />
                                 </div>
                             </div>
